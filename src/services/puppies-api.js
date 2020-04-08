@@ -12,3 +12,9 @@ export function create(pup) {
         body: JSON.stringify(pup)
     }).then(res => res.json());
 }
+
+export function deleteOne(id) {
+    return fetch(`${BASE_URL}/${id}`, {
+      method: 'DELETE'
+    }).then(res => res.json());
+}

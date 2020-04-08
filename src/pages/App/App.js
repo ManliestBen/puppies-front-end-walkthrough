@@ -18,6 +18,13 @@ class App extends Component {
     }), () => this.props.history.push('/'));
   }
 
+  handleDeletePuppy= async id => {
+    await puppyAPI.deleteOne(id);
+    this.setState(state => ({
+      puppies: state.puppies.filter(p => p._id !== id)
+    }), () => this.props.history.push('/'));
+  }
+
   async componentDidMount() {
     const puppies = await puppyAPI.getAll();
     this.setState({puppies});
@@ -37,6 +44,7 @@ class App extends Component {
           <Route exact path="/" render={({history}) =>
             <PuppyListPage 
               puppies={this.state.puppies}
+              handleDeletePuppy={this.handleDeletePuppy}
             />
           } />
           <Route exact path='/add' render={() => 
